@@ -1,0 +1,8 @@
+This is a small simple game I'm actually making as a doing-to-learn project.
+The hole project is licensed with the GPLv2 open source license.
+I won't take any responsibility for damage that was/is caused by this project!
+
+The game is named "Zombie Blocks". Right now it's not realy much implemented,
+and because I've a summer job that needs a lot of time and energy i can't invest much time during the summer holidays :(
+However get the source and try it witj make. At this moment it renders everything with SDL, but it's planned that the game uses OpenGL too.
+
