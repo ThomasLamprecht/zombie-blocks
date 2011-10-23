@@ -117,7 +117,7 @@ int main(void)
 				player.rect.x = 0;
 				player.rect.y = 0;
 			}
-			enemy[i].rect = calcEnemyPos(enemy[i], player.rect, 5.f);
+			enemy[i].rect = calcEnemyPosRanged(enemy[i], player.rect, 150, 5.f);
 		}
 		if(lives==0)
 		{

@@ -31,3 +31,5 @@ typedef struct _zombie
 	SDL_Rect rect;
 	float speed;
 } zombie;
+
+typedef SDL_Rect zbox;

@@ -1,6 +1,6 @@
 CC = gcc
 version = 0.1
-out = zombie\ blocks.$(version)x32
+out = zombie\ blocks.$(version)
 flags = -lm -lSDL -I/usr/include/SDL
 
 main: main.o vector.o gamelogic.o
@@ -14,6 +14,9 @@ gamelogic.o: gamelogic.c gamelogic.h types.h config.h
 
 main.o: main.c main.h types.h config.h
 	$(CC) -c main.c
+
+x86: main.o vector.o gamelogic.o
+	$(CC) -o $(out)_x86 vector.o gamelogic.o main.o $(flags)
 
 tidy:
 	rm *.o
