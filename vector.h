@@ -11,7 +11,7 @@
 	#include "types.h"
 #endif
 
-// floating point vectors
+// floating point 2D vectors
 vec2f *mv2f(void);
 vec2f v2f(float x1, float y1, float x2, float y2);
 vec2f addv2f(vec2f a, vec2f b);

@@ -3,7 +3,7 @@
 int main(void)
 {
 	srand(time(NULL));
-	char dead = 0,*sdl_error=NULL;
+	//char *sdl_error=NULL;
 	int run=1,width=1440,height=960,fps_ms=19;
 	unsigned int drawn_frames=0, i=0, eye_left, eye_top, lives = 10;
 	float m=0.f;
@@ -105,7 +105,6 @@ int main(void)
 			}
 		}
 		// GAME LOGIC
-		dead = 0;
 		//fps_now = SDL_GetTicks();
 		for(i=0;i<ZOMBIES;i++)
 		{
@@ -115,7 +114,6 @@ int main(void)
 				lives--;
 				printf("Lives: %u\n",lives);
 				hit_helper = fps_now + 1500;
-				dead = 1;
 				player.rect.x = 0;
 				player.rect.y = 0;
 			}
@@ -127,21 +125,21 @@ int main(void)
 			zombie_end_time = SDL_GetTicks();
 		}
 		// DRAWING <- should be replaced by OpenGL directives ... 
-		SDL_FillRect(screen, &bg, SDL_MapRGB(screen->format, 231, 231, 231)); //Draw Background		
+		SDL_FillRect(screen, &bg, SDL_MapRGB(screen->format, 231, 231, 231)); // draw background		
 		SDL_FillRect(screen, &player.rect, SDL_MapRGB(screen->format, 255, 255, 0)); // draw player
 		eye.x = player.rect.x + eye_left;
 		eye.y = player.rect.y + eye_top;
-		SDL_FillRect(screen, &eye, SDL_MapRGB(screen->format, 0, 250, 0)); // draw players eyes
+		SDL_FillRect(screen, &eye, SDL_MapRGB(screen->format, 0, 250, 0)); // draw player's left eye
 		eye.x += 2*eye_left;
-		SDL_FillRect(screen, &eye, SDL_MapRGB(screen->format, 0, 0, 250)); // draw players eyes
+		SDL_FillRect(screen, &eye, SDL_MapRGB(screen->format, 0, 0, 250)); // draw player's right eyes
 		for(i=0;i<ZOMBIES;i++)
 		{
 			SDL_FillRect(screen, &enemy[i].rect, SDL_MapRGB(screen->format, 255, 0, 0)); // draw ZOMBIES
 			eye.x = enemy[i].rect.x + eye_left;
 			eye.y = enemy[i].rect.y + eye_top;
-			SDL_FillRect(screen, &eye, SDL_MapRGB(screen->format, 0, 0, 0)); // draw ZOMBIES eyes
+			SDL_FillRect(screen, &eye, SDL_MapRGB(screen->format, 0, 0, 0)); // draw ZOMBIE's left eye
 			eye.x += 2*eye_left;
-			SDL_FillRect(screen, &eye, SDL_MapRGB(screen->format, 0, 0, 0)); // draw ZOMBIES eyes
+			SDL_FillRect(screen, &eye, SDL_MapRGB(screen->format, 0, 0, 0)); // draw ZOMBIE's right eye
 		}
 		SDL_Flip(screen);
 		
@@ -152,9 +150,8 @@ int main(void)
 		
 		
 		// FPS Output
-		drawn_frames++;		
-		fps_now = SDL_GetTicks();		
-		if(fps_helper<fps_now)
+		drawn_frames++;
+		if(fps_helper<(fps_now = SDL_GetTicks()))
 		{
 			printf("%d Frames after %.3f Seconds => fps: %.3f\n",drawn_frames,(fps_now-fps_helper+5000)/1000.0f,drawn_frames/((fps_now-fps_helper+5000)/1000.0f));
 			fps_helper = fps_now+5000;

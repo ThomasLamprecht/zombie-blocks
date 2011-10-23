@@ -1,5 +1,5 @@
 CC = gcc
-version = 0.1b
+version = 0.1
 out = zombie\ blocks.$(version)
 flags = -lm -lSDL -I/usr/include/SDL
 
@@ -19,4 +19,4 @@ tidy:
 	rm *.o
 
 open:
-	gedit main.c main.h vector.c vector.h gamelogic.c gamelogic.h types.h makefile
+	gedit main.c main.h vector.c vector.h gamelogic.c gamelogic.h types.h makefile &

@@ -11,10 +11,10 @@ typedef struct _vec2f
 	float x,y;
 } vec2f;
 
-typedef struct _vec2d
+/*typedef struct _vec2d
 {
 	int x,y;
-} vec2d;
+} vec2d; */
 
 typedef struct _windowNFO
 {

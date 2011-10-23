@@ -23,4 +23,4 @@
 SDL_Surface *window(int width, int height, int bpp, Uint32 flags, char *window_title, char *icon_title);
 SDL_Rect calcEnemyPos(zombie enemy, SDL_Rect player, float speed);
 
-const float zombie_speed = 2.5f;
+const float zombie_speed = 3.f; // optium between 2 & 3.5
