@@ -4,7 +4,7 @@ int main(void)
 {
 	srand(time(NULL));
 	//char *sdl_error=NULL;
-	int run=1,width=1440,height=960,fps_ms=19;
+	int run=1,width=1440,height=900,fps_ms=19;
 	unsigned int drawn_frames=0, i=0, eye_left, eye_top, lives = 10;
 	float m=0.f;
 	Uint32 fps_helper,fps_now,fps_next,hit_helper=0,zombie_start_time,zombie_end_time;
@@ -80,14 +80,14 @@ int main(void)
 		{			
 			if(player.rect.y+player.rect.h+(int)player.speed<=height)
 			{
-				player.rect.y += (int) player.speed;
+				player.rect.y += (int) player.speed/((keys[SDLK_RIGHT]||keys[SDLK_LEFT])?1.6f:1);
 			}
 		}
 		if(keys[SDLK_UP])
 		{
 			if(player.rect.y-(int)player.speed>=0)
 			{
-				player.rect.y -= (int)player.speed;
+				player.rect.y -= (int)player.speed/((keys[SDLK_RIGHT]||keys[SDLK_LEFT])?1.6f:1);
 			}
 		}
 		if(keys[SDLK_RIGHT])
@@ -182,14 +182,4 @@ SDL_Surface *window(int width, int height, int bpp, Uint32 flags, char *window_t
 	}	
 	SDL_WM_SetCaption(window_title,icon_title); // Setzt Titel für das Fenster
 	return screen;
-}
-
-SDL_Rect calcEnemyPos(zombie enemy, SDL_Rect player, float speed)
-{
-	vec2f vec = basicv2f(v2f((float)player.x,(float)player.y,(float)enemy.rect.x,(float)enemy.rect.y));
-	vec = smulv2f(enemy.speed,vec);
-	enemy.rect.x -= (int) vec.x;
-	enemy.rect.y -= (int) vec.y;
-	enemy.rect.w = enemy.rect.h = SQR_SIZE;
-	return enemy.rect;
 }

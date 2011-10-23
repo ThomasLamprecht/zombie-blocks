@@ -1,5 +1,5 @@
-#ifndef CONFIG_H
-	#define CONFIG_H
+#ifndef CFG_H
+	#define CFG_H
 	#include "config.h"
 #endif
 #ifndef SDL_H

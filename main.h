@@ -16,11 +16,15 @@
 	#define TYPES_H
 	#include "types.h"
 #endif
+#ifndef CFG_H
+	#define CFG_H
+	#include "config.h"
+#endif
 
-#define ZOMBIES 40
-#define SQR_SIZE 10
+//#define ZOMBIES 500
+//#define SQR_SIZE 20
 
 SDL_Surface *window(int width, int height, int bpp, Uint32 flags, char *window_title, char *icon_title);
-SDL_Rect calcEnemyPos(zombie enemy, SDL_Rect player, float speed);
+//SDL_Rect calcEnemyPos(zombie enemy, SDL_Rect player, float speed);
 
 const float zombie_speed = 3.f; // optium between 2 & 3.5
