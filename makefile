@@ -18,6 +18,9 @@ main.o: main.c main.h types.h config.h
 x86: main.o vector.o gamelogic.o
 	$(CC) -o $(out)_x86 vector.o gamelogic.o main.o $(flags)
 
+x64: main.o vector.o gamelogic.o
+	$(CC) -o $(out)_x64 vector.o gamelogic.o main.o $(flags)
+
 tidy:
 	rm *.o
 

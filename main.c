@@ -4,7 +4,7 @@ int main(void)
 {
 	srand(time(NULL));
 	//char *sdl_error=NULL;
-	int run=1,width=1440,height=900,fps_ms=19;
+	int run=1,width=1440,height=900,fps_ms=10;
 	unsigned int drawn_frames=0, i=0, eye_left, eye_top, lives = 10;
 	float m=0.f;
 	Uint32 fps_helper,fps_now,fps_next,hit_helper=0,zombie_start_time,zombie_end_time;
@@ -12,6 +12,7 @@ int main(void)
 	SDL_Event event;
 	SDL_Rect bg, eye;
 	zombie enemy[ZOMBIES], player;
+	vec2f enemy_random_movement[ZOMBIES];
 	Uint8 *keys;
 	
 	if(SDL_Init(SDL_INIT_VIDEO)==-1)
@@ -37,15 +38,16 @@ int main(void)
 	player.rect.h = SQR_SIZE;	
 	player.rect.x = (int) width/2-(int)player.rect.w/2;
 	player.rect.y = (int) height/2-(int)player.rect.h/2;
-	player.speed = 5.f;
+	player.speed = PLAYER_SPEED;
 	
 	for(i=0;i<ZOMBIES;i++)
 	{
-		enemy[i].rect.w = SQR_SIZE;
-		enemy[i].rect.h = SQR_SIZE;	
+		enemy[i].rect.w = P_SIZE;
+		enemy[i].rect.h = P_SIZE;	
 		enemy[i].rect.x = (rand()%2)?rand()%((int)width/3):width-rand()%((int)width/3-SQR_SIZE)+SQR_SIZE;
 		enemy[i].rect.y = (rand()%2)?rand()%((int)height/3):height-rand()%((int)height/3-SQR_SIZE)+SQR_SIZE;
-		enemy[i].speed = (float) zombie_speed+(float)((rand()%3000)/1001.f);
+		enemy[i].speed = (float) ZOMBIE_SPEED+(float)((rand()%3000)/1001.f);
+		enemy_random_movement[i] = genStartBaseVec((rand()%5000)/5000.f);
 	}
 	
 	zombie_start_time = SDL_GetTicks();
@@ -80,14 +82,14 @@ int main(void)
 		{			
 			if(player.rect.y+player.rect.h+(int)player.speed<=height)
 			{
-				player.rect.y += (int) player.speed/((keys[SDLK_RIGHT]||keys[SDLK_LEFT])?1.6f:1);
+				player.rect.y += (int) player.speed/((keys[SDLK_RIGHT] || keys[SDLK_LEFT])?1.6f:1);
 			}
 		}
 		if(keys[SDLK_UP])
 		{
 			if(player.rect.y-(int)player.speed>=0)
 			{
-				player.rect.y -= (int)player.speed/((keys[SDLK_RIGHT]||keys[SDLK_LEFT])?1.6f:1);
+				player.rect.y -= (int)player.speed/((keys[SDLK_RIGHT] || keys[SDLK_LEFT])?1.6f:1);
 			}
 		}
 		if(keys[SDLK_RIGHT])
@@ -107,17 +109,17 @@ int main(void)
 		// GAME LOGIC
 		//fps_now = SDL_GetTicks();
 		for(i=0;i<ZOMBIES;i++)
-		{
-			fps_now = SDL_GetTicks();
-			if((player.rect.x+SQR_SIZE>enemy[i].rect.x&&player.rect.x<enemy[i].rect.x+SQR_SIZE)&&(player.rect.y+SQR_SIZE>enemy[i].rect.y&&player.rect.y<enemy[i].rect.y+SQR_SIZE)&&hit_helper<fps_now)
+		{		
+			if(collideBoxes(player.rect, enemy[i].rect) && hit_helper<(fps_now = SDL_GetTicks()))
 			{				
 				lives--;
 				printf("Lives: %u\n",lives);
-				hit_helper = fps_now + 1500;
+				hit_helper = fps_now + 2000;
 				player.rect.x = 0;
 				player.rect.y = 0;
 			}
-			enemy[i].rect = calcEnemyPosRanged(enemy[i], player.rect, 150, 5.f);
+			isInRange(enemy[i].rect, player.rect, 50);
+			enemy[i].rect = calcEnemyPosRanged(enemy[i], player.rect, RANGE, &enemy_random_movement[i]);
 		}
 		if(lives==0)
 		{
@@ -125,16 +127,28 @@ int main(void)
 			zombie_end_time = SDL_GetTicks();
 		}
 		// DRAWING <- should be replaced by OpenGL directives ... 
-		SDL_FillRect(screen, &bg, SDL_MapRGB(screen->format, 231, 231, 231)); // draw background		
+		SDL_FillRect(screen, &bg, SDL_MapRGB(screen->format, 151, 151, 151)); // draw background
+#ifdef DEBUG		
+		for(i=0;i<ZOMBIES;i++)
+		{
+			SDL_Rect tmp_rect;
+			tmp_rect.x = enemy[i].rect.x-RANGE+ZMB_SIZE/2;
+			tmp_rect.y = enemy[i].rect.y-RANGE+ZMB_SIZE/2;
+			tmp_rect.w = 2*RANGE;
+			tmp_rect.h = tmp_rect.w;
+			SDL_FillRect(screen, &tmp_rect, SDL_MapRGB(screen->format, 0, 100, 255)); // draw range field
+		}
+#endif	
 		SDL_FillRect(screen, &player.rect, SDL_MapRGB(screen->format, 255, 255, 0)); // draw player
 		eye.x = player.rect.x + eye_left;
 		eye.y = player.rect.y + eye_top;
 		SDL_FillRect(screen, &eye, SDL_MapRGB(screen->format, 0, 250, 0)); // draw player's left eye
 		eye.x += 2*eye_left;
 		SDL_FillRect(screen, &eye, SDL_MapRGB(screen->format, 0, 0, 250)); // draw player's right eyes
+		// draw zombies
 		for(i=0;i<ZOMBIES;i++)
 		{
-			SDL_FillRect(screen, &enemy[i].rect, SDL_MapRGB(screen->format, 255, 0, 0)); // draw ZOMBIES
+			SDL_FillRect(screen, &enemy[i].rect, SDL_MapRGB(screen->format, 255, 0, 0)); // draw body
 			eye.x = enemy[i].rect.x + eye_left;
 			eye.y = enemy[i].rect.y + eye_top;
 			SDL_FillRect(screen, &eye, SDL_MapRGB(screen->format, 0, 0, 0)); // draw ZOMBIE's left eye
@@ -149,7 +163,7 @@ int main(void)
 		}*/
 		
 		
-		// FPS Output
+		// FPS output
 		drawn_frames++;
 		if(fps_helper<(fps_now = SDL_GetTicks()))
 		{

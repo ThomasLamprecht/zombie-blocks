@@ -32,6 +32,7 @@ vec2f subv2f(vec2f a, vec2f b)
 	a.y -= b.y;
 	return a;
 }
+
 vec2f saddv2f(float s, vec2f a)
 {
 	a.x += s;
@@ -49,6 +50,25 @@ vec2f sdivv2f(float s, vec2f a)
 	a.x /= s;
 	a.y /= s;
 	return a;
+}
+
+vec2f smulxv2f(float s, vec2f a)
+{	
+	a.x *= s;
+	return a;
+}
+vec2f smulyv2f(float s, vec2f a)
+{	
+	a.y *= s;
+	return a;
+}
+
+vec2f genStartBaseVec(float x) // inappropriate
+{
+	vec2f tmp;
+	tmp.x = ((rand()%2)?-1:1)*x;
+	tmp.y = ((rand()%2)?-1:1)*sqrtf(1-pow(x,2));
+	return tmp;
 }
 float mulv2f(vec2f a, vec2f b)
 {

@@ -6,6 +6,8 @@
 	#define SDL_H
 	#include <SDL/SDL.h>
 #endif
+typedef SDL_Rect zbox;
+
 typedef struct _vec2f
 {
 	float x,y;
@@ -28,8 +30,6 @@ typedef struct _gameNFO
 
 typedef struct _zombie
 {
-	SDL_Rect rect;
+	zbox rect;
 	float speed;
 } zombie;
-
-typedef SDL_Rect zbox;

@@ -22,3 +22,6 @@ vec2f sdivv2f(float s, vec2f a);
 float mulv2f(vec2f a, vec2f b);
 float lengthv2f(vec2f a);
 vec2f basicv2f(vec2f a);
+vec2f genStartBaseVec(float x);
+vec2f smulxv2f(float s, vec2f a);
+vec2f smulyv2f(float s, vec2f a);
