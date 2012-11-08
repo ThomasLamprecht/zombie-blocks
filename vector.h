@@ -1,3 +1,6 @@
+#ifndef VECTOR_H
+#define VECTOR_H
+
 #ifndef MATH_H
 	#define MATH_H
 	#include <math.h>
@@ -6,10 +9,7 @@
 	#define MALLOC_H
 	#include <malloc.h>
 #endif
-#ifndef TYPES_H
-	#define TYPES_H
 	#include "types.h"
-#endif
 
 // floating point 2D vectors
 vec2f *mv2f(void);
@@ -25,3 +25,5 @@ vec2f basicv2f(vec2f a);
 vec2f genStartBaseVec(float x);
 vec2f smulxv2f(float s, vec2f a);
 vec2f smulyv2f(float s, vec2f a);
+
+#endif

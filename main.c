@@ -4,7 +4,8 @@ int main(void)
 {
 	srand(time(NULL));
 	//char *sdl_error=NULL;
-	int run=1,width=1440,height=900,fps_ms=10;
+  int run=1;
+  int width=getWindowWidth(), height=getWindowHeight(), fps_ms=getFramems();
 	unsigned int drawn_frames=0, i=0, eye_left, eye_top, lives = 10;
 	float m=0.f;
 	Uint32 fps_helper,fps_now,fps_next,hit_helper=0,zombie_start_time,zombie_end_time;
@@ -14,7 +15,20 @@ int main(void)
 	zombie enemy[ZOMBIES], player;
 	vec2f enemy_random_movement[ZOMBIES];
 	Uint8 *keys;
-	
+  SDL_Rect **modes;
+
+ /* modes = SDL_ListModes(NULL, SDL_HWSURFACE | SDL_DOUBLEBUF);
+  
+   Check is there are any modes available
+  if(modes == (SDL_Rect **)0){
+    printf("No modes available!\n");
+    exit(-1);
+  }
+     Print valid modes 
+    printf("Available Modes\n");
+    for(i=0;modes[i];++i)
+      printf("  %d x %d\n", modes[i]->w, modes[i]->h); */
+  
 	if(SDL_Init(SDL_INIT_VIDEO)==-1)
 	{
 		printf("Fehler, SDL konnte nicht initialisiert werden: %s\n", SDL_GetError());
@@ -128,7 +142,7 @@ int main(void)
 		}
 		// DRAWING <- should be replaced by OpenGL directives ... 
 		SDL_FillRect(screen, &bg, SDL_MapRGB(screen->format, 151, 151, 151)); // draw background
-#ifdef DEBUG		
+#ifdef DEBUG
 		for(i=0;i<ZOMBIES;i++)
 		{
 			SDL_Rect tmp_rect;

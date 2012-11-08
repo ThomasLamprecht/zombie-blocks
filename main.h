@@ -4,22 +4,11 @@
 	#define SDL_H
 	#include <SDL/SDL.h>
 #endif
-#ifndef VECTOR_H
-	#define VECTOR_H
-	#include "vector.h"
-#endif
-#ifndef GLOGIC_H
-	#define GLOGIC_H
-	#include "gamelogic.h"
-#endif
-#ifndef TYPES_H
-	#define TYPES_H
-	#include "types.h"
-#endif
-#ifndef CFG_H
-	#define CFG_H
-	#include "config.h"
-#endif
+
+#include "vector.h"
+#include "gamelogic.h"
+#include "types.h"
+#include "config.h"
 
 //#define ZOMBIES 50
 //#define SQR_SIZE 20

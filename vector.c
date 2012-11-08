@@ -1,7 +1,4 @@
-#ifndef VECTOR_H
-	#define VECTOR_H
-	#include "vector.h"
-#endif
+#include "vector.h"
 
 // floating point vectors
 vec2f *mv2f(void)

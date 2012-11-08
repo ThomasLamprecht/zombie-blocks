@@ -1,7 +1,4 @@
-#ifndef GLOGIC_H
-	#define GLOGIC_H
-	#include "gamelogic.h"
-#endif
+#include "gamelogic.h"
 
 SDL_Rect calcEnemyPos(zombie enemy, SDL_Rect player, float speed)
 {
@@ -69,7 +66,7 @@ zbox calcRandomMovement(zombie src, vec2f *basevec)
 		*basevec = smulxv2f(-1.f, *basevec);
 		tmp = smulv2f(src.speed,*basevec);
 	}	
-	if(src.rect.x+(int)tmp.x>=1440-ZMB_SIZE) // TODO Change dynamic size!!
+	if(src.rect.x+(int)tmp.x>=getWindowWidth()-ZMB_SIZE) // TODO Change dynamic size!!
 	{	
 		*basevec = smulxv2f(-1.f, *basevec);
 		tmp = smulv2f(src.speed,*basevec);
@@ -79,7 +76,7 @@ zbox calcRandomMovement(zombie src, vec2f *basevec)
 		*basevec = smulyv2f(-1.f, *basevec);
 		tmp = smulv2f(src.speed,*basevec);
 	}	
-	if(src.rect.y+(int)tmp.y>=900-ZMB_SIZE) // TODO Change dynamic size!!
+	if(src.rect.y+(int)tmp.y>=getWindowHeight()-ZMB_SIZE) // TODO Change dynamic size!!
 	{	
 		*basevec = smulyv2f(-1.f, *basevec);
 		tmp = smulv2f(src.speed,*basevec);

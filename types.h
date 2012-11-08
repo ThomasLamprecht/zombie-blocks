@@ -1,7 +1,7 @@
-#ifndef CFG_H
-	#define CFG_H
-	#include "config.h"
-#endif
+#ifndef TYPES_H
+#define TYPES_H
+
+#include "config.h"
 #ifndef SDL_H
 	#define SDL_H
 	#include <SDL/SDL.h>
@@ -33,3 +33,5 @@ typedef struct _zombie
 	zbox rect;
 	float speed;
 } zombie;
+
+#endif
