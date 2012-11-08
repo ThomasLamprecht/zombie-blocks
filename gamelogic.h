@@ -11,4 +11,5 @@ zbox calcRandomMovement(zombie src, vec2f *basevec);
 int isInRange(zbox src, zbox target, int range);
 int collides(zbox a, zbox b);
 zombie updatePlayer(zombie player, Uint8 *keys);
+
 #endif

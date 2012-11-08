@@ -48,21 +48,22 @@ int main(void)
 	
 	screen = window(width,height,32,SDL_HWSURFACE | SDL_DOUBLEBUF,"Zombie Blocks - http://gamer-source.org","Zombie Blocks"); // Fenster initalisieren
 
-	player.rect.w = SQR_SIZE;
-	player.rect.h = SQR_SIZE;	
+  player.rect.w = P_SIZE;
+  player.rect.h = P_SIZE;	
 	player.rect.x = (int) width/2-(int)player.rect.w/2;
 	player.rect.y = (int) height/2-(int)player.rect.h/2;
 	player.speed = PLAYER_SPEED;
 	
 	for(i=0;i<ZOMBIES;i++)
 	{
-		enemy[i].rect.w = P_SIZE;
-		enemy[i].rect.h = P_SIZE;	
+    enemy[i].rect.w = ZMB_SIZE;
+    enemy[i].rect.h = ZMB_SIZE;
 		enemy[i].rect.x = (rand()%2)?rand()%((int)width/3):width-rand()%((int)width/3-SQR_SIZE)+SQR_SIZE;
 		enemy[i].rect.y = (rand()%2)?rand()%((int)height/3):height-rand()%((int)height/3-SQR_SIZE)+SQR_SIZE;
 
     enemy[i].speed = (float) ZOMBIE_SPEED+(float)((rand()%3000)/1001.f);
 		enemy_random_movement[i] = genStartBaseVec((rand()%5000)/5000.f);
+    enemy[i].direction = getVector(rand()%360);
 	}
 	
 	zombie_start_time = SDL_GetTicks();
@@ -145,12 +146,6 @@ int main(void)
 		}
 		SDL_Flip(screen);
 		
-		/*if((sdl_error=SDL_GetError())!=NULL)
-		{
-			printf("Error occured:: %s\n",sdl_error);
-		}*/
-		
-		
 		// FPS output
 		drawn_frames++;
 		if(fps_helper<(fps_now = SDL_GetTicks()))
@@ -163,6 +158,7 @@ int main(void)
 		SDL_Delay((fps_next<=fps_now)?0:fps_next-fps_now);
 		fps_next += fps_ms;
 	}
+	
 	// Quitting game
 	printf("You've played %.2f seconds!\n",(float)(zombie_end_time-zombie_start_time)/1000.f);
 	SDL_FreeSurface(screen);

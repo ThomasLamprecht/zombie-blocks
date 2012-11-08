@@ -26,4 +26,7 @@ vec2f genStartBaseVec(float x);
 vec2f smulxv2f(float s, vec2f a);
 vec2f smulyv2f(float s, vec2f a);
 
+vec2f getVector(int angle);
+void setVector(vec2f *v, int angle);
+
 #endif

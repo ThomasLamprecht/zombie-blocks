@@ -60,6 +60,20 @@ vec2f smulyv2f(float s, vec2f a)
 	return a;
 }
 
+vec2f getVector(int angle)
+{
+  vec2f tmp;
+  tmp.x = cos(angle);
+  tmp.y = sin(angle);
+  return tmp;
+}
+
+void setVector(vec2f *v, int angle)
+{
+  v->x = cos(angle);
+  v->y = sin(angle);
+}
+
 vec2f genStartBaseVec(float x) // inappropriate
 {
 	vec2f tmp;
