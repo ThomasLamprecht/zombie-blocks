@@ -60,7 +60,8 @@ int main(void)
 		enemy[i].rect.h = P_SIZE;	
 		enemy[i].rect.x = (rand()%2)?rand()%((int)width/3):width-rand()%((int)width/3-SQR_SIZE)+SQR_SIZE;
 		enemy[i].rect.y = (rand()%2)?rand()%((int)height/3):height-rand()%((int)height/3-SQR_SIZE)+SQR_SIZE;
-		enemy[i].speed = (float) ZOMBIE_SPEED+(float)((rand()%3000)/1001.f);
+
+    enemy[i].speed = (float) ZOMBIE_SPEED+(float)((rand()%3000)/1001.f);
 		enemy_random_movement[i] = genStartBaseVec((rand()%5000)/5000.f);
 	}
 	
@@ -91,35 +92,8 @@ int main(void)
 				}
 			}
 		}
-		keys = SDL_GetKeyState(NULL);
-		if(keys[SDLK_DOWN])
-		{			
-			if(player.rect.y+player.rect.h+(int)player.speed<=height)
-			{
-				player.rect.y += (int) player.speed/((keys[SDLK_RIGHT] || keys[SDLK_LEFT])?1.6f:1);
-			}
-		}
-		if(keys[SDLK_UP])
-		{
-			if(player.rect.y-(int)player.speed>=0)
-			{
-				player.rect.y -= (int)player.speed/((keys[SDLK_RIGHT] || keys[SDLK_LEFT])?1.6f:1);
-			}
-		}
-		if(keys[SDLK_RIGHT])
-		{
-			if(player.rect.x+(int)player.speed+player.rect.w<=width)
-			{
-				player.rect.x += (int)player.speed;
-			}
-		}
-		if(keys[SDLK_LEFT])
-		{			
-			if(player.rect.x-(int)player.speed>=0)
-			{
-				player.rect.x -= (int)player.speed;
-			}
-		}
+// 		keys = SDL_GetKeyState(NULL);
+    player = updatePlayer(player, SDL_GetKeyState(NULL));
 		// GAME LOGIC
 		//fps_now = SDL_GetTicks();
 		for(i=0;i<ZOMBIES;i++)

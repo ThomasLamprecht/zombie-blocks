@@ -31,7 +31,9 @@ typedef struct _gameNFO
 typedef struct _zombie
 {
 	zbox rect;
+  vec2f direction;
 	float speed;
+  uint8_t TYPE;
 } zombie;
 
 #endif

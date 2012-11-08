@@ -9,7 +9,11 @@
 
 //#define DEBUG 1
 #define ZOMBIES 50 // number of zombies
-#define RANGE 200
+#define RANGE 180
+#define RAGE_RANGE 250
+#define PLAYER_T 0
+#define ZOMBIE_T 1
+#define CIVILIAN_T 2
 //NOTE! right now all size constants should be the same
 #define SQR_SIZE 10 // <- depreceated
 #define P_SIZE 10

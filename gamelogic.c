@@ -87,3 +87,36 @@ zbox calcRandomMovement(zombie src, vec2f *basevec)
 	
 	return src.rect;
 }
+
+zombie updatePlayer(zombie player, Uint8 *keys) //TODO! Implement everything with direction vectors!
+{
+  if(keys[SDLK_DOWN])
+  {
+    if(player.rect.y+player.rect.h+(int)player.speed<=getWindowHeight())
+    {
+      player.rect.y += (int) player.speed/((keys[SDLK_RIGHT] || keys[SDLK_LEFT])?1.6f:1);
+    }
+  }
+  if(keys[SDLK_UP])
+  {
+    if(player.rect.y-(int)player.speed>=0)
+    {
+      player.rect.y -= (int)player.speed/((keys[SDLK_RIGHT] || keys[SDLK_LEFT])?1.6f:1);
+    }
+  }
+  if(keys[SDLK_RIGHT])
+  {
+    if(player.rect.x+(int)player.speed+player.rect.w<=getWindowWidth())
+    {
+      player.rect.x += (int)player.speed;
+    }
+  }
+  if(keys[SDLK_LEFT])
+  {
+    if(player.rect.x-(int)player.speed>=0)
+    {
+      player.rect.x -= (int)player.speed;
+    }
+  }
+  return player;
+}
